@@ -1,13 +1,12 @@
 import Testimonial from "../models/testimonial.model.js";
 
-export const createTestimonial = async (name, role, avatarurl, description) => {
-  if (!name || !role || !avatarurl || !description) {
+export const createTestimonial = async (name, role, description) => {
+  if (!name || !role || !description) {
     return { success: false, message: "All fields are required" };
   }
   const testimonial = await Testimonial.create({
     name,
     role,
-    avatarurl,
     description,
   });
   return { success: true, testimonial };

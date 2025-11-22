@@ -7,6 +7,7 @@ import userRouter from "./routes/user.route.js";
 import FAQRouter from "./routes/faq.route.js";
 import testimonialRouter from "./routes/testimonial.route.js";
 import featureRouter from "./routes/feature.route.js";
+import path from "path"
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api", userRouter);
 app.use("/api/faq", FAQRouter);

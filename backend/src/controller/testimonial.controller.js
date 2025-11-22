@@ -8,8 +8,7 @@ import {
 export const createTestimonialHandler = async (req, res) => {
   try {
     const { name, role, description } = req.body;
-    const avatarurl = req?.file ? `/uploads/${req?.file?.filename}` : null;
-    const data = await createTestimonial(name, role, avatarurl, description);
+    const data = await createTestimonial(name, role, description);
 
     if (!data.success) {
       return res.status(400).json(data);
@@ -30,7 +29,6 @@ export const editTestimonialHandler = async (req, res) => {
     if (name) updateData.name = name;
     if (role) updateData.role = role;
     if (description) updateData.description = description;
-    if (req.file) updateData.avatarurl = `/uploads/${req.file.filename}`;
 
     const data = await editTestimonial(id, updateData);
 

@@ -8,7 +8,7 @@ function Offer() {
           <p className="text-[#23262F] text-sm font-semibold">
             Special Launch offer
           </p>
-          <h1 className="text-5xl font-semibold">
+          <h1 className="text-2xl sm:text-5xl font-semibold">
             Your journey to better health starts now
           </h1>
           <h4 className="text-[#777E90] text-sm">

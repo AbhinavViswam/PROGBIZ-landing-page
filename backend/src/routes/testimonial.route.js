@@ -10,7 +10,7 @@ import { upload } from "../config/multer.js";
 
 const router = Router();
 
-router.post("/", upload.single("avatarurl"), createTestimonialHandler);
+router.post("/", auth, createTestimonialHandler);
 router.get("/", getTestimonialHandler);
 router.put("/:id", auth, upload.single("avatarurl"), editTestimonialHandler);
 router.delete("/:id", auth, deleteTestimonialHandler);

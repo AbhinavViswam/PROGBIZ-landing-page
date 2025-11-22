@@ -1,3 +1,4 @@
+import cloudinary from "../config/cloudinary.js";
 import {
   createFeature,
   deleteFeature,
@@ -6,9 +7,16 @@ import {
 } from "../services/feature.service.js";
 
 export const createFeatureHandler = async (req, res) => {
-  try {
+  // try {
     const { title, subtitle, content } = req.body;
-    const imgurl = req?.file ? `/uploads/${req?.file?.filename}` : null;
+    const loaclPath = req?.file.path;
+    console.log("localpath:",loaclPath)
+    const result = await cloudinary.uploader.upload(loaclPath, {
+      folder: "reppoo/uploads",
+    });
+    console.log(result)
+
+    const imgurl = result.secure_url;
 
     const data = await createFeature(title, subtitle, content, imgurl);
 
@@ -17,9 +25,9 @@ export const createFeatureHandler = async (req, res) => {
     }
 
     res.status(201).json(data);
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Server error" });
-  }
+  // } catch (error) {
+  //   res.status(500).json({ success: false, message: "Server error" });
+  // }
 };
 
 export const editFeatureHandler = async (req, res) => {

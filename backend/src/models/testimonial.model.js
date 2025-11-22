@@ -9,9 +9,6 @@ const testimonialSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  avatarurl: {
-    type: String,
-  },
   description: {
     type: String,
     required: true,
