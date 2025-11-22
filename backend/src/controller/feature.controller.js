@@ -2,11 +2,14 @@ import {
   createFeature,
   deleteFeature,
   editFeature,
+  getFeature,
 } from "../services/feature.service.js";
 
 export const createFeatureHandler = async (req, res) => {
   try {
-    const { title, subtitle, content, imgurl } = req.body;
+    const { title, subtitle, content } = req.body;
+    const imgurl = req?.file ? `/uploads/${req?.file?.filename}` : null;
+
     const data = await createFeature(title, subtitle, content, imgurl);
 
     if (!data.success) {
@@ -22,9 +25,14 @@ export const createFeatureHandler = async (req, res) => {
 export const editFeatureHandler = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, subtitle, content, imgurl } = req.body;
+    const { title, subtitle, content } = req.body;
+    const updatedData = {};
+    if (title) updatedData.title = title;
+    if (subtitle) updatedData.subtitle = subtitle;
+    if (content) updatedData.subtitle = subtitle;
+    if (req.file) updatedData.imgurl = `/uploads/${req?.file?.filename}`;
 
-    const data = await editFeature(id, title, subtitle, content, imgurl);
+    const data = await editFeature(id, updatedData);
 
     if (!data.success) {
       return res.status(400).json(data);
@@ -40,6 +48,20 @@ export const deleteFeatureHandler = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await deleteFeature(id);
+
+    if (!data.success) {
+      return res.status(400).json(data);
+    }
+
+    res.status(201).json(data);
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+export const getFeatureHandler = async (req, res) => {
+  try {
+    const data = await getFeature();
 
     if (!data.success) {
       return res.status(400).json(data);

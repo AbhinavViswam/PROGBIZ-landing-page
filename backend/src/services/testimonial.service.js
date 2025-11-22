@@ -13,22 +13,14 @@ export const createTestimonial = async (name, role, avatarurl, description) => {
   return { success: true, testimonial };
 };
 
-export const editTestimonial = async (
-  id,
-  name,
-  role,
-  avatarurl,
-  description
-) => {
+export const editTestimonial = async (id, updateData) => {
   if (!id) {
     return { success: false, message: "Testimonial ID is required" };
   }
 
-  const updated = await Testimonial.findByIdAndUpdate(
-    id,
-    { name, role, avatarurl, description },
-    { new: true }
-  );
+  const updated = await Testimonial.findByIdAndUpdate(id, updateData, {
+    new: true,
+  });
 
   if (!updated) {
     return { success: false, message: "Testimonial not found" };
@@ -44,4 +36,9 @@ export const deleteTestimonial = async (id) => {
 
   const faq = await Testimonial.findByIdAndDelete(id);
   return { success: true, faq };
+};
+
+export const getTestimonial = async () => {
+  const testimonial = await Testimonial.find();
+  return { success: true, testimonial };
 };

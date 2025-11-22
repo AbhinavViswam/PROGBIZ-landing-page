@@ -17,3 +17,8 @@ export const deleteFaq = async (id) => {
   const faq = await FAQ.findByIdAndDelete(id);
   return { success: true, faq };
 };
+
+export const getFAQ = async () => {
+  const faq = await FAQ.find();
+  return { success: true, faq };
+};

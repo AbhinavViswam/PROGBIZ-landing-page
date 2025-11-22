@@ -15,16 +15,14 @@ export const createFeature = async (title, subtitle, content, imgurl) => {
   return { success: true, feature };
 };
 
-export const editFeature = async (id, title, subtitle, content, imgurl) => {
+export const editFeature = async (id, updatedData) => {
   if (!id) {
     return { success: false, message: "Feature ID is required" };
   }
 
-  const updated = await Feature.findByIdAndUpdate(
-    id,
-    { title, subtitle, content, imgurl },
-    { new: true }
-  );
+  const updated = await Feature.findByIdAndUpdate(id, updatedData, {
+    new: true,
+  });
 
   if (!updated) {
     return { success: false, message: "Feature not found" };
@@ -39,5 +37,10 @@ export const deleteFeature = async (id) => {
   }
 
   const feature = await Feature.findByIdAndDelete(id);
+  return { success: true, feature };
+};
+
+export const getFeature = async () => {
+  const feature = await Feature.find();
   return { success: true, feature };
 };
