@@ -9,7 +9,7 @@ import {
 import { upload } from "../config/multer.js";
 const router = Router();
 
-router.post("/", auth, upload.single("imgurl"), createFeatureHandler);
+router.post("/", upload.single("imgurl"), createFeatureHandler);
 router.get("/", getFeatureHandler);
 router.put("/:id", auth, upload.single("imgurl"), editFeatureHandler);
 router.delete("/:id", auth, deleteFeatureHandler);

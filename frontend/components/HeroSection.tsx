@@ -1,17 +1,20 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { IconBrandApple, IconBrandGooglePlay } from "@tabler/icons-react";
 import { useEffect, useRef, useState } from "react";
+import { useTestimonials } from "@/backend/testimonial/testimonial.query";
+import IosAndAndroid from "./button/IosAndAndroid";
 
 function HeroSection() {
-  const TARGET = 300;
+  const { data } = useTestimonials();
+  const TARGET = data?.testimonial?.length + 1000 || null;
   const DURATION_MS = 1800;
   const [number, setNumber] = useState(0);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (!TARGET) return;
     const easeOutQuad = (t: number) => 1 - (1 - t) * (1 - t);
 
     const step = (timestamp: number) => {
@@ -34,18 +37,27 @@ function HeroSection() {
       rafRef.current = null;
       startRef.current = null;
     };
-  }, []);
+  }, [TARGET]);
   return (
     <section className="flex items-center justify-center w-full p-4 bg-[#F9F9F9]">
       <div className="flex flex-col gap-4 w-full sm:max-w-[90vw]">
         <div className="flex items-end justify-center">
           <motion.div
-            initial={{ y: 18, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            className="relative inline-block w-full max-w-md hover:scale-105 transition-all duration-300"
+            animate={{
+              y: [0, -12, 0, 12, 0],
+              rotate: [0, -4, 0, 4, 0],
+            }}
+            transition={{
+              duration: 4,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+            whileHover={{ scale: 1.05 }}
+            className="relative inline-block w-full max-w-md transition-all duration-300"
+            style={{ willChange: "transform" }}
           >
-            <div className="absolute -inset-6 rounded-2xl blur-3xl opacity-20 bg-blur-blue"></div>
+            <div className="absolute -inset-6 rounded-2xl blur-3xl opacity-20 bg-blur-blue" />
 
             <Image
               src={"/gauge.png"}
@@ -59,7 +71,7 @@ function HeroSection() {
           <motion.div
             initial={{ y: 18, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
+            transition={{ duration: 0.2 }}
             className="w-full"
           >
             <Image
@@ -71,10 +83,19 @@ function HeroSection() {
             />
           </motion.div>
           <motion.div
-            initial={{ y: 18, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            className="relative inline-block w-full max-w-md hover:scale-105 transition-all duration-300"
+            animate={{
+              y: [0, 12, 0, -12, 0],
+              rotate: [0, 4, 0, -4, 0],
+            }}
+            transition={{
+              duration: 4,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+            whileHover={{ scale: 1.05 }}
+            className="relative inline-block w-full max-w-md transition-all duration-300"
+            style={{ willChange: "transform" }}
           >
             <div className="absolute -inset-6 rounded-2xl blur-3xl opacity-20 bg-blur-yellow"></div>
 
@@ -112,7 +133,12 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-4">
+        <motion.div
+          initial={{ y: 18, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          className="flex flex-col items-center justify-center gap-4"
+        >
           <h1 className="text-3xl font-bold sm:text-6xl">
             Your AI Health Coach
           </h1>
@@ -121,17 +147,8 @@ function HeroSection() {
             guidance that adapts to your unique needs.
           </p>
 
-          <div className="flex items-center justify-center gap-4">
-            <button className="flex items-center justify-center gap-1 bg-white rounded-full px-4 py-2 cursor-pointer transition-all hover:scale-105 duration-200">
-              <IconBrandApple fill="black" size={28} />
-              <span className="text-sm sm:text-lg font-bold">Download</span>
-            </button>
-            <button className="flex items-center justify-center gap-1 bg-white rounded-full px-4 py-2 cursor-pointer transition-all hover:scale-105 duration-200">
-              <IconBrandGooglePlay size={28} />
-              <span className="text-sm sm:text-lg font-bold">Download</span>
-            </button>
-          </div>
-        </div>
+          <IosAndAndroid />
+        </motion.div>
       </div>
     </section>
   );
