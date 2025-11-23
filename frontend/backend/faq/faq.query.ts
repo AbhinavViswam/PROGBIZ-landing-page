@@ -1,12 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFaq, deleteFaq, getFaq } from "./faq.api";
 
-type Faq = {
-  _id?: string;
-  question: string;
-  answer: string;
-};
-
 export const useFaqs = () => {
   return useQuery({
     queryKey: ["faqs"],
@@ -32,7 +26,6 @@ export const useCreateFaq = () => {
 
 export const useDeleteFaq = () => {
   const qc = useQueryClient();
-
   return useMutation({
     mutationFn: (id: string) => deleteFaq(id),
     onSuccess: () => {

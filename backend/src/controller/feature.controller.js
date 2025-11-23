@@ -10,11 +10,9 @@ export const createFeatureHandler = async (req, res) => {
   // try {
     const { title, subtitle, content } = req.body;
     const loaclPath = req?.file.path;
-    console.log("localpath:",loaclPath)
     const result = await cloudinary.uploader.upload(loaclPath, {
       folder: "reppoo/uploads",
     });
-    console.log(result)
 
     const imgurl = result.secure_url;
 

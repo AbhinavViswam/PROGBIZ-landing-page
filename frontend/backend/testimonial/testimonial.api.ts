@@ -9,17 +9,13 @@ export const createTestimonial = async (payload: {
   name: string;
   role: string;
   description: string;
-  file: File;
 }) => {
-  const formData = new FormData();
-  formData.append("name", payload.name);
-  formData.append("role", payload.role);
-  formData.append("description", payload.description);
-  formData.append("avatarurl", payload.file);
-
-  const res = await axiosClient.post("/testimonial", formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  const formData = {
+    name: payload?.name,
+    role: payload?.role,
+    description: payload?.description,
+  };
+  const res = await axiosClient.post("/testimonial", formData);
 
   return res?.data;
 };
@@ -30,19 +26,15 @@ export const updateTestimonial = async (
     name?: string;
     role?: string;
     description?: string;
-    file?: File;
   }
 ) => {
-  const formData = new FormData();
+  const formData = {
+    name: payload?.name,
+    role: payload?.role,
+    description: payload?.description,
+  };
 
-  if (payload.name) formData.append("name", payload.name);
-  if (payload.role) formData.append("role", payload.role);
-  if (payload.description) formData.append("description", payload.description);
-  if (payload.file) formData.append("avatarurl", payload.file);
-
-  const res = await axiosClient.put(`/testimonial/${id}`, formData, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+  const res = await axiosClient.put(`/testimonial/${id}`, formData);
 
   return res?.data;
 };

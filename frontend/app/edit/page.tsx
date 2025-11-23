@@ -1,16 +1,16 @@
 import ClientSection from "@/components/ClientSection";
-import FAQ from "@/components/FAQ";
-import Features from "@/components/Features";
+import FAQ from "@/components/edit/FAQEdit";
+import Features from "@/components/edit/FeatureEdit";
+import EditNavbar from "@/components/edit/NavbarEdit";
+import Testimonial from "@/components/edit/TestimonialEdit";
 import Footer from "@/components/FooterSection";
 import HeroSection from "@/components/HeroSection";
-import Navbar from "@/components/Navbar";
 import Offer from "@/components/Offer";
-import Testimonial from "@/components/Testimonial";
 
-export default function Home() {
+function page() {
   return (
     <div>
-      <Navbar />
+      <EditNavbar />
       <HeroSection />
       <ClientSection />
       <Features />
@@ -21,3 +21,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default page;

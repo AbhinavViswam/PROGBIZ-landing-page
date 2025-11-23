@@ -7,7 +7,6 @@ import userRouter from "./routes/user.route.js";
 import FAQRouter from "./routes/faq.route.js";
 import testimonialRouter from "./routes/testimonial.route.js";
 import featureRouter from "./routes/feature.route.js";
-import path from "path"
 
 dotenv.config();
 

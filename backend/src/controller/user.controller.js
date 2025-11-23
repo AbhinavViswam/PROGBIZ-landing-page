@@ -26,9 +26,14 @@ export const registerUserHandler = async (req, res) => {
   }
 };
 
+export const logoutHandler = (req, res) => {
+  res.cookie("token","", cookieOptions);
+  res.status(200).json({success:true, message:"Logged out"})
+};
+
 export const getUserHandler = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.user._id;
     const data = await getUserById(id);
 
     if (!data.success) {

@@ -20,6 +20,7 @@ export const registerUser = async (name, email, password) => {
   return { success: true, token };
 };
 
+
 export const getUserById = async (id) => {
   const user = await User.findById(id).select("-password");
 
@@ -44,9 +45,11 @@ export const loginUser = async (email, password) => {
     return { success: false, message: "Invalid credentials" };
   }
 
+  const userData = await User.findOne({ email }).select("-password");
+
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "7d",
   });
 
-  return { success: true, token };
+  return { success: true, token, user: userData };
 };

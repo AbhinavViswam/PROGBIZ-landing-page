@@ -37,7 +37,7 @@ function FAQ() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10">
+    <div className="flex flex-col items-center justify-center gap-10 py-20">
       <div className="text-center max-w-md flex flex-col gap-4">
         <h1 className="text-5xl font-semibold">Frequently Asked Questions</h1>
         <p className="text-base text-[#777E90]">
