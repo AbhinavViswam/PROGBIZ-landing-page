@@ -36,7 +36,15 @@ git clone https://github.com/AbhinavViswam/PROGBIZ-landing-page.git
 npm install
 ```
 
-3. **Start the project:**
+3. **add .env file:**
+
+
+rename .env(backend) to .env and place it inside backend folder.
+
+rename .env(frontend) to .env and place it inside frontend folder.
+
+
+4. **Start the project:**
 
 ```bash
 npm run dev
