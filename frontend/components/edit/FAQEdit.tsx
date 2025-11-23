@@ -200,7 +200,7 @@ export default function FAQ() {
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     className="border rounded px-3 py-2"
-                    placeholder="e.g. How do I reset my password?"
+                    placeholder="Write your question"
                     required
                   />
                 </label>

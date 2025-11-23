@@ -4,14 +4,16 @@ import Image from "next/image";
 import { useContext } from "react";
 import { logoutUser } from "@/backend/user/user.api";
 import LoginModal from "../login/loginModal";
+import { useRouter } from "next/navigation";
 
 function EditNavbar() {
   const { user, setUser } = useContext(UserContext);
-
+  const router = useRouter();
   async function logOut() {
     await logoutUser();
     setUser("");
     localStorage.removeItem("token");
+    router.push("/");
   }
 
   return (
